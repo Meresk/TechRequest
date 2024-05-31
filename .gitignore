@@ -1,0 +1,5 @@
+# Исключаем папку vendor
+/vendor/
+
+/storage/movies
+/public/storage
