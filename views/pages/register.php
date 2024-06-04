@@ -2,6 +2,7 @@
 /**
  * @var \App\Kernel\View\ViewInterface $view
  * @var \App\Kernel\Session\SessionInterface $session
+ * @var \App\Models\Role $roles
  */
 ?>
 
@@ -12,16 +13,17 @@
             <hr>
         </div>
         <div class="container d-flex justify-content-center">
-            <form action="/register" method="post" class="d-flex flex-column justify-content-center w-50 gap-2 mt-5 mb-5">
+            <form action="/register" method="post"
+                  class="d-flex flex-column justify-content-center w-50 gap-2 mt-5 mb-5">
                 <div class="row g-2">
                     <div class="col-md">
                         <div class="form-floating">
                             <input
-                                type="text"
-                                class="form-control <?php echo $session->has('name') ? 'is-invalid' : '' ?>"
-                                id="name"
-                                name="name"
-                                placeholder="Иван Иванов"
+                                    type="text"
+                                    class="form-control <?php echo $session->has('name') ? 'is-invalid' : '' ?>"
+                                    id="name"
+                                    name="name"
+                                    placeholder="Иван Иванов"
                             >
                             <label for="name">Имя</label>
                             <?php if ($session->has('name')) { ?>
@@ -36,11 +38,11 @@
                     <div class="col-md">
                         <div class="form-floating">
                             <input
-                                type="email"
-                                class="form-control <?php echo $session->has('email') ? 'is-invalid' : '' ?>"
-                                name="email"
-                                id="email"
-                                placeholder="name@areaweb.su"
+                                    type="email"
+                                    class="form-control <?php echo $session->has('email') ? 'is-invalid' : '' ?>"
+                                    name="email"
+                                    id="email"
+                                    placeholder="name@areaweb.su"
                             >
                             <label for="email">E-mail</label>
                             <?php if ($session->has('email')) { ?>
@@ -55,11 +57,11 @@
                     <div class="col-md">
                         <div class="form-floating">
                             <input
-                                type="password"
-                                class="form-control <?php echo $session->has('password') ? 'is-invalid' : '' ?>"
-                                id="password"
-                                name="password"
-                                placeholder="*********"
+                                    type="password"
+                                    class="form-control <?php echo $session->has('password') ? 'is-invalid' : '' ?>"
+                                    id="password"
+                                    name="password"
+                                    placeholder="*********"
                             >
                             <label for="password">Пароль</label>
                             <?php if ($session->has('password')) { ?>
@@ -71,8 +73,21 @@
                     </div>
                     <div class="col-md">
                         <div class="form-floating">
-                            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="*********">
+                            <input type="password" class="form-control" id="password_confirmation"
+                                   name="password_confirmation" placeholder="*********">
                             <label for="password_confirmation">Подтверждение</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-floating">
+                            <select class="form-select" name="role">
+                                <option>Роль</option>
+                                <?php foreach ($roles as $role) { ?>
+                                    <option value="<?php echo $role->id() ?>">
+                                        <?php echo $role->title() ?>
+                                    </option>
+                                <?php } ?>
+                            </select>
                         </div>
                     </div>
                 </div>

@@ -57,6 +57,7 @@ class Auth implements AuthInterface
             'id' => $this->session->get($this->sessionField()),
         ]);
 
+
         if ($user) {
             return new User(
                 $user['id'],
@@ -69,6 +70,18 @@ class Auth implements AuthInterface
         return null;
     }
 
+    public function isAdmin()
+    {
+        $user = $this->db->first($this->table(), [
+            'id' => $this->session->get($this->sessionField()),
+        ]);
+
+        if ($user['role_id'] != 4){
+            return false;
+        }
+
+        return true;
+    }
 
     public function table(): string
     {

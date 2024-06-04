@@ -3,13 +3,18 @@
 namespace App\Controllers;
 
 use App\Kernel\Controller\Controller;
+use App\Services\RoleService;
 use JetBrains\PhpStorm\NoReturn;
 
 class RegisterController extends Controller
 {
     public function index(): void
     {
-        $this->view(name: 'register', title: 'Регистрация');
+        $roles = new RoleService($this->db());
+
+        $this->view('register', [
+          'roles' => $roles->all()
+        ], 'Регистрация');
     }
 
     #[NoReturn] public function register()
@@ -19,6 +24,7 @@ class RegisterController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required', 'min:8', 'confirmed'],
             'password_confirmation' => ['required', 'min:8'],
+            'role' => ['required'],
         ]);
 
         if (!$validation){
@@ -29,14 +35,16 @@ class RegisterController extends Controller
             $this->redirect('/register');
         }
 
-        //dd($this->request());
-        
-        $this->db()->insert('users', [
+        if($this->db()->insert('users', [
+            'role_id' => $this->request()->input('role'),
             'name' => $this->request()->input('name'),
             'email' => $this->request()->input('email'),
             'password' => password_hash($this->request()->input('password'), PASSWORD_DEFAULT),
-        ]);
-
-        $this->redirect('/');
+        ])){
+            $this->redirect('/admin');
+        }
+        else{
+            $this->redirect('/register');
+        }
     }
 }

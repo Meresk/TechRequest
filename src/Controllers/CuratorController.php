@@ -4,8 +4,9 @@ namespace App\Controllers;
 
 use App\Kernel\Controller\Controller;
 use App\Services\ApplicationService;
+use App\Services\UserService;
 
-class HomeController extends Controller
+class CuratorController extends Controller
 {
     /**
      * Основной метод отображения страницы home
@@ -13,8 +14,11 @@ class HomeController extends Controller
     public function index(): void
     {
         $applications = new ApplicationService($this->db());
-        $this->view('home', [
-            'applications' => $applications->getApplicationsByUser(),
-        ], 'Главная страница');
+        $users = new UserService($this->db());
+
+        $this->view('curator/index', [
+            'applications' => $applications->all(),
+            'users' => $users->all(),
+        ], 'Управление');
     }
 }
