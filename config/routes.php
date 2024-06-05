@@ -30,6 +30,7 @@ return [
     Route::get('/applications/add', [ApplicationController::class, 'create'], [AuthMiddleware::class]),
     Route::post('/applications/add', [ApplicationController::class, 'store'], [AuthMiddleware::class]),
     Route::post('/applications/destroy', [ApplicationController::class, 'destroy'], [AuthMiddleware::class]),
+    Route::get('/applications/info', [ApplicationController::class, 'info'], [AuthMiddleware::class]),
 
     Route::get('/curator', [CuratorController::class, 'index'], [AuthMiddleware::class]),
 ];

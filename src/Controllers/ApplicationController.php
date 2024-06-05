@@ -37,6 +37,15 @@ class ApplicationController extends Controller
         $this->redirect('/');
     }
 
+    public function info()
+    {
+        $application = $this->service()->find($this->request()->input('id'));
+
+        $this->view('applications/info', [
+            'application' => $application,
+        ], "Заявка № {$application->id()}");
+    }
+
     private function service(): ApplicationService
     {
         if (! isset($this->service)){

@@ -44,6 +44,29 @@ class ApplicationService
         $this->db->delete('applications', ['id' => $id]);
     }
 
+    public function find(int $id): ?Application
+    {
+        $application = $this->db->first('applications', ['id' => $id]);
+
+        if(!$application){
+            return null;
+        }
+
+        return new Application(
+            $application['id'],
+            $application['applicant_id'],
+            $application['status'],
+            $application['reason'],
+            $application['inventory_number'],
+            $application['inventory_place'],
+            $application['applicant_comment'],
+            $application['executor_comment'],
+            $application['date_submitted'],
+            $application['created_at'],
+            $application['updated_at'],
+        );
+    }
+
     /**
      * Метод преобразования массивов в объекты класса Application
      * @param array $applications
