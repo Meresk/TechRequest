@@ -13,21 +13,40 @@
             <hr>
         </div>
         <div class="container">
-            <div class="card my-4">
+
+            <div class="card my-3 col-md-6">
+                <h5 class="card-header">
+                    Причина
+                </h5>
                 <div class="card-body">
-                    <dl class="row">
-                        <dt class="col-sm-3 text-right">Причина:</dt>
-                        <dd class="col-sm-9"><?php echo htmlspecialchars($application->reason());?></dd>
+                    <p class="card-title"><?php echo htmlspecialchars($application->reason());?></p>
+                </div>
+            </div>
 
-                        <dt class="col-sm-3 text-right">Инвентарный номер:</dt>
-                        <dd class="col-sm-9"><?php echo htmlspecialchars($application->inventoryNumber());?></dd>
+            <div class="card my-3 col-md-6">
+                <h5 class="card-header">
+                    Инвентарный номер
+                </h5>
+                <div class="card-body">
+                    <p class="card-title"><?php echo htmlspecialchars($application->inventoryNumber());?></p>
+                </div>
+            </div>
 
-                        <dt class="col-sm-3 text-right">Место инвентаризации:</dt>
-                        <dd class="col-sm-9"><?php echo htmlspecialchars($application->inventoryPlace());?></dd>
+            <div class="card my-3 col-md-6">
+                <h5 class="card-header ">
+                    Место инвентаризации
+                </h5>
+                <div class="card-body">
+                    <p class="card-title"><?php echo htmlspecialchars($application->inventoryPlace());?></p>
+                </div>
+            </div>
 
-                        <dt class="col-sm-3 text-right">Комментарий заявителя:</dt>
-                        <dd class="col-sm-9"><?php echo nl2br(htmlspecialchars($application->applicantComment()));?></dd>
-                    </dl>
+            <div class="card my-3 col-md-6">
+                <h5 class="card-header">
+                    Комментарий заявителя
+                </h5>
+                <div class="card-body">
+                    <p class="card-title"><?php echo nl2br(htmlspecialchars($application->applicantComment()));?></p>
                 </div>
             </div>
         </div>

@@ -10,10 +10,10 @@
 
 <main>
     <div class="container">
-        <h3 class="mt-3">Управление заявками</h3>
+        <h3 class="mt-3">Исполение заявок</h3>
         <hr>
         <div class="d-flex align-items-center justify-content-between mb-4">
-            <h4>Все заявки</h4>
+            <h4>Заявки, на которые вы назначены</h4>
         </div>
         <table class="table table-dark table-hover">
             <thead>
@@ -30,7 +30,7 @@
                 foreach ($applications as $application) {
                     foreach ($users as $user) {
                         if ($application->applicantId() == $user->id())
-                            $view->component('curator/application', ['application' => $application, 'user' => $user]);
+                            $view->component('executor/application', ['application' => $application, 'user' => $user]);
                     }
                 }
                 ?>

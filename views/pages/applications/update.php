@@ -13,7 +13,8 @@
             <hr>
         </div>
         <div class="container">
-            <form action="/applications/add" method="post" class="d-flex flex-column justify-content-center w-50 gap-2 mt-5 mb-5">
+            <form action="/applications/update" method="post" class="d-flex flex-column justify-content-center w-50 gap-2 mt-5 mb-5">
+                <input type="hidden" name="id" value="<?php echo $application->id() ?>">
                 <div class="row g-2">
                     <!-- Поле "Причина" -->
                     <div class="col-md">
@@ -79,14 +80,14 @@
                                 id="applicantComment"
                                 name="applicantComment"
                                 placeholder="Комментарий заявителя"
-                            <?php echo $application->applicantComment(); ?>></textarea>
+                            ><?php echo htmlspecialchars($application->applicantComment());?></textarea>
                             <label for="applicantComment">Комментарий заявителя</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="row g-2">
-                    <button class="btn btn-primary">Добавить</button>
+                    <button class="btn btn-primary">Обновить</button>
                 </div>
 
             </form>

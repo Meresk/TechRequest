@@ -3,6 +3,7 @@
 use App\Controllers\AdminController;
 use App\Controllers\ApplicationController;
 use App\Controllers\CuratorController;
+use App\Controllers\ExecutorController;
 use App\Controllers\HomeController;
 use App\Controllers\LoginController;
 use App\Controllers\RegisterController;
@@ -30,7 +31,11 @@ return [
     Route::get('/applications/add', [ApplicationController::class, 'create'], [AuthMiddleware::class]),
     Route::post('/applications/add', [ApplicationController::class, 'store'], [AuthMiddleware::class]),
     Route::post('/applications/destroy', [ApplicationController::class, 'destroy'], [AuthMiddleware::class]),
+    Route::get('/applications/update', [ApplicationController::class, 'edit'], [AuthMiddleware::class]),
+    Route::post('/applications/update', [ApplicationController::class, 'update'], [AuthMiddleware::class]),
     Route::get('/applications/info', [ApplicationController::class, 'info'], [AuthMiddleware::class]),
 
     Route::get('/curator', [CuratorController::class, 'index'], [AuthMiddleware::class]),
+
+    Route::get('/executor', [ExecutorController::class, 'index'], [AuthMiddleware::class]),
 ];

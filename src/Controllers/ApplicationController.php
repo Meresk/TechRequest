@@ -37,7 +37,31 @@ class ApplicationController extends Controller
         $this->redirect('/');
     }
 
-    public function info()
+    public function edit(): void
+    {
+        $application = $this->service()->find($this->request()->input('id'));
+
+        $this->view('applications/update', [
+            'application' => $application,
+        ], "Заявка № {$application->id()}");
+    }
+
+    public function update(): void
+    {
+        //TODO: Добавить валидацию
+
+        $this->service()->update(
+            $this->request()->input('id'),
+            $this->request()->input('reason'),
+            $this->request()->input('inventoryNumber'),
+            $this->request()->input('inventoryPlace'),
+            $this->request()->input('applicantComment'),
+        );
+
+        $this->redirect('/');
+    }
+
+    public function info(): void
     {
         $application = $this->service()->find($this->request()->input('id'));
 

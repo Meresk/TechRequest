@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Kernel\Auth\Auth;
 use App\Kernel\Database\DatabaseInterface;
 use App\Models\Application;
 
@@ -42,6 +41,18 @@ class ApplicationService
     public function delete(int $id): void
     {
         $this->db->delete('applications', ['id' => $id]);
+    }
+
+    public function update(int $id, string $reason, string $inventoryNumber, string $inventoryPlace, string $applicantComment): void
+    {
+        $this->db->update('applications', [
+            'reason' => $reason,
+            'inventory_number' => $inventoryNumber,
+            'inventory_place' => $inventoryPlace,
+            'applicant_comment' => $applicantComment,
+        ], [
+            'id' => $id,
+        ]);
     }
 
     public function find(int $id): ?Application
