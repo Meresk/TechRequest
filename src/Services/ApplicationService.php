@@ -28,7 +28,6 @@ class ApplicationService
 
     public function store(string $reason, string $inventoryNumber, string $inventoryPlace, string $applicantComment): false|int
     {
-
         return $this->db->insert('applications', [
             'reason' => $reason,
             'applicant_id' => $_SESSION['user_id'],

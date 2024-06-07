@@ -29,6 +29,24 @@ class UserService
         return $users;
     }
 
+    public function allExecutors(): array
+    {
+        $users = $this->db->get('users', [
+            'role_id' => 3
+        ]);
+
+        $users = array_map(function ($user) {
+            return new User(
+                id: $user['id'],
+                name: $user['name'],
+                email: $user['email'],
+                role: $user['role_id'],
+            );
+        }, $users);
+
+        return $users;
+    }
+
     public function delete(int $id): void
     {
         $this->db->delete('users', ['id' => $id]);

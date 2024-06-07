@@ -2,6 +2,7 @@
 
 use App\Controllers\AdminController;
 use App\Controllers\ApplicationController;
+use App\Controllers\AssignmentController;
 use App\Controllers\CuratorController;
 use App\Controllers\ExecutorController;
 use App\Controllers\HomeController;
@@ -38,4 +39,7 @@ return [
     Route::get('/curator', [CuratorController::class, 'index'], [AuthMiddleware::class]),
 
     Route::get('/executor', [ExecutorController::class, 'index'], [AuthMiddleware::class]),
+
+    Route::get('/assignments/add', [AssignmentController::class, 'create'], [AuthMiddleware::class]),
+    Route::post('/assignments/add', [AssignmentController::class, 'upsert'], [AuthMiddleware::class]),
 ];

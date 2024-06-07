@@ -3,6 +3,7 @@
  * @var \App\Kernel\View\ViewInterface $view
  * @var array<\App\Models\Application> $applications
  * @var array<\App\Models\User> $users
+ * @var array<\App\Models\Assignment> $assignments
  */
 ?>
 
