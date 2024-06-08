@@ -138,7 +138,7 @@ class Database implements DatabaseInterface
     }
 
 
-    public function selectWithJoin(string $mainTableKey, string $joinTableKey): array
+    public function selectWithJoin(string $mainTableKey, string $joinTableKey, array $conditions = []): array
     {
         // Извлекаем названия таблиц и ключей
         [$mainTable, $mainKey] = explode('.', $mainTableKey);
@@ -147,11 +147,17 @@ class Database implements DatabaseInterface
         // Формируем часть FROM для JOIN
         $fromClause = "$mainTable LEFT JOIN $joinTable ON $mainTable.$mainKey = $joinTable.$joinKey";
 
-        // Формируем SQL запрос
-        $sql = "SELECT * FROM $fromClause";
+        $where = '';
 
+        if (count($conditions) > 0) {
+            $where = 'WHERE '.implode(' AND ', array_map(fn ($field) => "$field = :$field", array_keys($conditions)));
+        }
+
+        // Формируем SQL запрос
+        $sql = "SELECT * FROM $fromClause $where";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute();
+
+        $stmt->execute($conditions);
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }

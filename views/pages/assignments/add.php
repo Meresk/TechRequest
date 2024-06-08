@@ -54,6 +54,7 @@
                             <p class="card-title"><?php echo nl2br(htmlspecialchars($application->applicantComment())); ?></p>
                         </div>
                     </div>
+
                 </div>
 
                 <div class="col-md-5 my-3">

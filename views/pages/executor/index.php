@@ -1,7 +1,7 @@
 <?php
 /**
  * @var \App\Kernel\View\ViewInterface $view
- * @var array<\App\Models\Application> $applications
+ * @var array $applications
  * @var array<\App\Models\User> $users
  */
 ?>
@@ -27,10 +27,11 @@
             </thead>
             <tbody>
                 <?php
-                foreach ($applications as $application) {
-                    foreach ($users as $user) {
-                        if ($application->applicantId() == $user->id())
-                            $view->component('executor/application', ['application' => $application, 'user' => $user]);
+                foreach ($applications as $application) { // Используем ссылку для изменения оригинальных данных
+                    foreach ($users as $applicant) {
+                        if ($application['applicant_id'] == $applicant->id()) {
+                            $view->component('executor/application', ['application' => $application, 'applicant' => $applicant]);
+                        }
                     }
                 }
                 ?>

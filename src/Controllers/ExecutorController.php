@@ -13,11 +13,16 @@ class ExecutorController extends Controller
      */
     public function index(): void
     {
-        $applications = new ApplicationService($this->db());
+        $applications = $this->db()->selectWithJoin(
+            'applications.id',
+            'assignments.application_id',
+            ['executor_id' => $_SESSION['user_id']]
+        );
+
         $users = new UserService($this->db());
 
         $this->view('executor/index', [
-            'applications' => $applications->all(),
+            'applications' => $applications,
             'users' => $users->all(),
         ], 'Управление');
     }

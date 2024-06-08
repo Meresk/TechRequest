@@ -1,7 +1,8 @@
 <?php
 /**
  * @var \App\Kernel\View\ViewInterface $view
- * @var array<\App\Models\Application> $applications
+ * @var array $applications
+ * @var \App\Models\User $executors
  */
 ?>
 
@@ -31,9 +32,18 @@
             </thead>
             <tbody>
                 <?php
-                foreach ($applications as $application) {
-                    $view->component('application', ['application' => $application]);
+                foreach ($applications as &$application) { // Используем ссылку для изменения оригинальных данных
+                    $executor = null;
+
+                    foreach ($executors as $executorObj) {
+                        if ($application['executor_id'] == $executorObj->id()) {
+                            $executor = $executorObj;
+                            break; // Выходим из внутреннего цикла, так как нашли нужного исполнителя
+                        }
+                    }
+                    $view->component('application', ['application' => $application, 'executor' => $executor]);
                 }
+                unset($application); // Освобождаем ссылку на последнее значение
                 ?>
             </tbody>
         </table>

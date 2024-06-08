@@ -70,6 +70,7 @@ class ApplicationController extends Controller
         ], "Заявка № {$application->id()}");
     }
 
+
     private function service(): ApplicationService
     {
         if (! isset($this->service)){

@@ -19,11 +19,18 @@ class ApplicationService
         return $this->toApplicationObject($applications);
     }
 
+    /**
+     * Возвращает массив а не объекты класса Application!
+     */
     public function getApplicationsByUser(): array
     {
-        $applications = $this->db->get('applications', ['applicant_id' => $_SESSION['user_id']]);
+        $applications = $this->db->selectWithJoin(
+            'applications.id',
+            'assignments.application_id',
+            ['applicant_id' => $_SESSION['user_id']]
+        );
 
-        return $this->toApplicationObject($applications);
+        return $applications;
     }
 
     public function store(string $reason, string $inventoryNumber, string $inventoryPlace, string $applicantComment): false|int
