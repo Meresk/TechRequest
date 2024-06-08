@@ -5,7 +5,7 @@ namespace App\Models;
 class Assignment
 {
     public function __construct(
-        private int $id,
+        private int $assignmentId,
         private int $applicationId,
         private int $executorId,
         private ?string $dateStartedWork,
@@ -19,7 +19,7 @@ class Assignment
 
     public function id(): int
     {
-        return $this->id;
+        return $this->assignmentId;
     }
 
     public function applicationId(): int

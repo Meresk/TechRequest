@@ -14,17 +14,11 @@ class CuratorController extends Controller
      */
     public function index(): void
     {
-        $applications = new ApplicationService($this->db());
         $users = new UserService($this->db());
-        $assignments = new AssignmentService($this->db());
-
-        // TODO: пишем костыль!!!
-        $this->db()->selectWithJoin('applications.id', 'assignments.application_id');
-
+        $applications = $this->db()->selectWithJoin('applications.id', 'assignments.application_id');
         $this->view('curator/index', [
-            'applications' => $applications->all(),
+            'applications' => $applications,
             'users' => $users->all(),
-            'assignments' => $assignments->all(),
         ], 'Управление');
     }
 }

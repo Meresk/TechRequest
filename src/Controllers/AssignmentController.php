@@ -26,6 +26,7 @@ class AssignmentController extends Controller
 
     public function upsert(): void
     {
+
         $this->service()->upsert(
             $this->request()->input('id'),
             $this->request()->input('applicationId'),

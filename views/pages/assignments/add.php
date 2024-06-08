@@ -2,9 +2,10 @@
 /**
  * @var \App\Kernel\View\ViewInterface $view
  * @var \App\Kernel\Session\SessionInterface $session
+ *
  * @var \App\Models\Application $application
  * @var array<\App\Models\User> $executors
- * @var array<\App\Models\Assignment> $assignment
+ * @var \App\Models\Assignment|null $assignment
  */
 ?>
 
@@ -61,14 +62,36 @@
                             Назначить исполнителя
                         </h5>
                         <div class="card-body">
+                            <?php if (!is_null($assignment)) { ?>
+                                <form action="/assignments/add" method="post">
+                                    <input type="hidden" name="id" value="<?php echo $assignment->id() ?>">
+                                    <input type="hidden" name="applicationId" value="<?php echo $application->id() ?>">
+                                    <div class="mb-2">
+
+                                        <select class="form-select " name="executorId">
+                                            <option>Исполнитель</option>
+                                            <?php foreach ($executors as $executor) { ?>
+                                                <option value="<?php echo $executor->id() ?>" <?php echo $executor->id() == $assignment->executorId() ? 'selected' : '' ?>>
+                                                    <?php echo $executor->name() ?>
+                                                </option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-0 d-flex justify-content-end">
+                                        <button class="btn btn-primary btn-success">Назначить</button>
+                                    </div>
+                                </form>
+
+                            <?php } else { ?>
                             <form action="/assignments/add" method="post">
-                                <input type="hidden" name="id" value="<?php echo $assignment->id() ?>">
                                 <input type="hidden" name="applicationId" value="<?php echo $application->id() ?>">
                                 <div class="mb-2">
+
                                     <select class="form-select " name="executorId">
                                         <option>Исполнитель</option>
                                         <?php foreach ($executors as $executor) { ?>
-                                            <option value="<?php echo $executor->id() ?>" <?php echo $executor->id() === $assignment->executorId() ? 'selected' : '' ?>>
+                                            <option value="<?php echo $executor->id() ?>">
                                                 <?php echo $executor->name() ?>
                                             </option>
                                         <?php } ?>
@@ -79,9 +102,11 @@
                                     <button class="btn btn-primary btn-success">Назначить</button>
                                 </div>
                             </form>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
+            </div>
         </div>
     </main>
 

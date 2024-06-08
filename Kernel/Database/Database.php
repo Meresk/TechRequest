@@ -137,21 +137,6 @@ class Database implements DatabaseInterface
         $stmt->execute(array_merge($data, $conditions));
     }
 
-    public function upsert(string $table, array $data, array $conditions = []): bool
-    {
-        // Проверяем, существует ли уже запись с такими условиями
-        $existingRecord = $this->first($table, $conditions);
-
-        if ($existingRecord!== null) {
-            // Запись существует, обновляем её
-            $this->update($table, $data, $conditions);
-            return true;
-        } else {
-            // Запись не существует, вставляем новую
-            $this->insert($table, $data);
-            return true;
-        }
-    }
 
     public function selectWithJoin(string $mainTableKey, string $joinTableKey): array
     {

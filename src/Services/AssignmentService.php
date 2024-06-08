@@ -20,7 +20,7 @@ class AssignmentService
 
         $assignments = array_map(function ($assignment) {
             return new Assignment(
-                id: $assignment['id'],
+                assignmentId: $assignment['assignment_id'],
                 applicationId: $assignment['application_id'],
                 executorId: $assignment['executor_id'],
                 dateStartedWork: $assignment['date_started_work'],
@@ -34,13 +34,19 @@ class AssignmentService
         return $assignments;
     }
 
-    public function upsert(int $id, int $applicationId, int $executorId): false|int
+    public function upsert(?int $id, int $applicationId, int $executorId): false|int
     {
-        return $this->db->upsert('assignments', [
-            'id' => $id,
-            'application_id' => $applicationId,
-            'executor_id' => $executorId,
-        ]);
+        if($this->db->first('assignments', ['assignment_id' => $id]) == null){
+            return $this->db->insert('assignments', ['application_id' => $applicationId, 'executor_id' => $executorId]);
+        } else {
+            $this->db->update('assignments', [
+                'application_id' => $applicationId,
+                'executor_id' => $executorId,
+            ], [
+                'assignment_id' => $id,
+            ]);
+            return true;
+        }
     }
 
     public function findApplication(int $id): ?Application
@@ -75,7 +81,7 @@ class AssignmentService
         }
 
         return new Assignment(
-            $assignment['id'],
+            $assignment['assignment_id'],
             $assignment['application_id'],
             $assignment['executor_id'],
             $assignment['date_started_work'],

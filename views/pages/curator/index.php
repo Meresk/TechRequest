@@ -1,9 +1,8 @@
 <?php
 /**
  * @var \App\Kernel\View\ViewInterface $view
- * @var array<\App\Models\Application> $applications
+ * @var array $applications
  * @var array<\App\Models\User> $users
- * @var array<\App\Models\Assignment> $assignments
  */
 ?>
 
@@ -23,18 +22,35 @@
                 <th scope="col">Статус</th>
                 <th scope="col">ФИО заявителя</th>
                 <th scope="col">Причина</th>
+                <th scope="col">ФИО исполнителя</th>
                 <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
-                <?php
-                foreach ($applications as $application) {
-                    foreach ($users as $user) {
-                        if ($application->applicantId() == $user->id())
-                            $view->component('curator/application', ['application' => $application, 'user' => $user]);
-                    }
-                }
-                ?>
+            <?php
+            // Создаем ассоциативный массив пользователей для быстрого доступа
+            $usersById = [];
+            foreach ($users as $user) {
+                $usersById[$user->id()] = $user;
+            }
+
+            foreach ($applications as $application) {
+                // Получаем пользователя-заявителя по ID, если он существует
+                $applicantUser = isset($usersById[$application['applicant_id']])? $usersById[$application['applicant_id']] : null;
+
+                // Получаем пользователя-исполнителя по ID, если он существует
+                $executorUser = isset($usersById[$application['executor_id']])? $usersById[$application['executor_id']] : null;
+
+                // Проверяем, есть ли исполнитель
+                $hasExecutor = $executorUser!== null;
+
+                $view->component('curator/application', [
+                    'application' => $application,
+                    'applicantUser' => $applicantUser,
+                    'executorUser' => $hasExecutor? $executorUser : null
+                ]);
+            }
+            ?>
             </tbody>
         </table>
     </div>
