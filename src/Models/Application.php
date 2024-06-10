@@ -12,7 +12,6 @@ class Application
         private ?string $inventoryNumber,
         private string $inventoryPlace,
         private ?string $applicantComment,
-        private ?string $executorComment,
         private ?string $dateSubmitted,
         private string $createdAt,
         private string $updatedAt,
@@ -29,7 +28,6 @@ class Application
             inventoryNumber: $data['inventory_number'],
             inventoryPlace: $data['inventory_place'],
             applicantComment: $data['applicant_comment'],
-            executorComment: $data['executor_comment'],
             dateSubmitted: $data['date_submitted'],
             createdAt: $data['created_at'],
             updatedAt: $data['updated_at']
@@ -69,11 +67,6 @@ class Application
     public function applicantComment(): string
     {
         return $this->applicantComment;
-    }
-
-    public function executorComment(): string
-    {
-        return $this->executorComment;
     }
 
     public function dateSubmitted(): string

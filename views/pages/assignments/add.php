@@ -68,7 +68,6 @@
                                     <input type="hidden" name="id" value="<?php echo $assignment->id() ?>">
                                     <input type="hidden" name="applicationId" value="<?php echo $application->id() ?>">
                                     <div class="mb-2">
-
                                         <select class="form-select " name="executorId">
                                             <option>Исполнитель</option>
                                             <?php foreach ($executors as $executor) { ?>
@@ -85,27 +84,40 @@
                                 </form>
 
                             <?php } else { ?>
-                            <form action="/assignments/add" method="post">
-                                <input type="hidden" name="applicationId" value="<?php echo $application->id() ?>">
-                                <div class="mb-2">
+                                <form action="/assignments/add" method="post">
+                                    <input type="hidden" name="applicationId" value="<?php echo $application->id() ?>">
+                                    <div class="mb-2">
 
-                                    <select class="form-select " name="executorId">
-                                        <option>Исполнитель</option>
-                                        <?php foreach ($executors as $executor) { ?>
-                                            <option value="<?php echo $executor->id() ?>">
-                                                <?php echo $executor->name() ?>
-                                            </option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
+                                        <select class="form-select " name="executorId">
+                                            <option>Исполнитель</option>
+                                            <?php foreach ($executors as $executor) { ?>
+                                                <option value="<?php echo $executor->id() ?>">
+                                                    <?php echo $executor->name() ?>
+                                                </option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
 
-                                <div class="mb-0 d-flex justify-content-end">
-                                    <button class="btn btn-primary btn-success">Назначить</button>
-                                </div>
-                            </form>
+                                    <div class="mb-0 d-flex justify-content-end">
+                                        <button class="btn btn-primary btn-success">Назначить</button>
+                                    </div>
+                                </form>
                             <?php } ?>
                         </div>
                     </div>
+
+                    <?php if (!is_null($assignment)) { ?>
+
+                        <div class="card my-3">
+                            <h5 class="card-header">
+                                Комментарий исполнителя
+                            </h5>
+                            <div class="card-body">
+                                <p class="card-title"><?php echo $assignment->executorComment() != null ? $assignment->executorComment() : 'Отсуствует' ?></p>
+                            </div>
+                        </div>
+                    <?php } ?>
+
                 </div>
             </div>
         </div>

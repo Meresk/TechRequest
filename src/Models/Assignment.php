@@ -10,6 +10,7 @@ class Assignment
         private int $executorId,
         private ?string $dateStartedWork,
         private ?string $dateEndedWork,
+        private ?string $executorComment,
         private ?string $closeReason,
         private string $createdAt,
         private string $updatedAt,
@@ -32,17 +33,17 @@ class Assignment
         return $this->executorId;
     }
 
-    public function dateStartedWork(): string
+    public function dateStartedWork(): ?string
     {
         return $this->dateStartedWork;
     }
 
-    public function dateEndedWork(): string
+    public function dateEndedWork(): ?string
     {
         return $this->dateEndedWork;
     }
 
-    public function closeReason(): string
+    public function closeReason(): ?string
     {
         return $this->closeReason;
     }
@@ -55,5 +56,10 @@ class Assignment
     public function updatedAt(): string
     {
         return $this->updatedAt;
+    }
+
+    public function executorComment(): ?string
+    {
+        return $this->executorComment;
     }
 }

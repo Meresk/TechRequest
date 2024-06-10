@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Kernel\Database\DatabaseInterface;
 use App\Models\Application;
+use App\Models\Assignment;
 
 class ApplicationService
 {
@@ -77,10 +78,30 @@ class ApplicationService
             $application['inventory_number'],
             $application['inventory_place'],
             $application['applicant_comment'],
-            $application['executor_comment'],
             $application['date_submitted'],
             $application['created_at'],
             $application['updated_at'],
+        );
+    }
+
+    public function findAssignment(int $applicationId): ?Assignment
+    {
+        $assignment = $this->db->first('assignments', ['application_id' => $applicationId]);
+
+        if(!$assignment){
+            return null;
+        }
+
+        return new Assignment(
+            $assignment['assignment_id'],
+            $assignment['application_id'],
+            $assignment['executor_id'],
+            $assignment['date_started_work'],
+            $assignment['date_ended_work'],
+            $assignment['executor_comment'],
+            $assignment['close_reason'],
+            $assignment['created_at'],
+            $assignment['updated_at'],
         );
     }
 
@@ -100,7 +121,6 @@ class ApplicationService
                 inventoryNumber: $application['inventory_number'],
                 inventoryPlace: $application['inventory_place'],
                 applicantComment: $application['applicant_comment'],
-                executorComment: $application['executor_comment'],
                 dateSubmitted: $application['date_submitted'],
                 createdAt: $application['created_at'],
                 updatedAt: $application['updated_at'],

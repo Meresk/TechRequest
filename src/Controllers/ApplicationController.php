@@ -64,9 +64,11 @@ class ApplicationController extends Controller
     public function info(): void
     {
         $application = $this->service()->find($this->request()->input('id'));
+        $assignment = $this->service->findAssignment($this->request()->input('id'));
 
         $this->view('applications/info', [
             'application' => $application,
+            'assignment' => $assignment,
         ], "Заявка № {$application->id()}");
     }
 

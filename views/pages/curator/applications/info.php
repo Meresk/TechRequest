@@ -58,6 +58,15 @@
                     <p class="card-title"><?php echo nl2br(htmlspecialchars($application->applicantComment()));?></p>
                 </div>
             </div>
+
+            <div class="card my-3 col-md-6">
+                <h5 class="card-header">
+                    Причина закрытия
+                </h5>
+                <div class="card-body">
+                    <p class="card-title"><?php echo nl2br(htmlspecialchars($assignment->closeReason()));?></p>
+                </div>
+            </div>
         </div>
     </main>
 
