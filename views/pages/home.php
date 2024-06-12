@@ -26,7 +26,7 @@
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Статус</th>
-                <th scope="col">ФИО исполнителя</th>
+                <th scope="col">Исполнитель</th>
                 <th scope="col"></th>
             </tr>
             </thead>

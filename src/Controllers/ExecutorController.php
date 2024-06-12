@@ -19,10 +19,12 @@ class ExecutorController extends Controller
         );
 
         $users = new UserService($this->db());
+        $sortBy = $this->request()->input('sortBy');
 
         $this->view('executor/index', [
             'applications' => $applications,
             'users' => $users->all(),
+            'sortBy' => $sortBy,
         ], 'Управление');
     }
 
