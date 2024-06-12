@@ -37,11 +37,10 @@ return [
     Route::get('/applications/info', [ApplicationController::class, 'info'], [AuthMiddleware::class]),
 
     Route::get('/curator', [CuratorController::class, 'index'], [AuthMiddleware::class]),
+    Route::get('/assignments/add', [AssignmentController::class, 'create'], [AuthMiddleware::class]),
+    Route::post('/assignments/add', [AssignmentController::class, 'upsert'], [AuthMiddleware::class]),
 
     Route::get('/executor', [ExecutorController::class, 'index'], [AuthMiddleware::class]),
     Route::get('/executor/applications/work', [ExecutorController::class, 'work'], [AuthMiddleware::class]),
     Route::post('/executor/applications/work', [ExecutorController::class, 'workUpdate'], [AuthMiddleware::class]),
-
-    Route::get('/assignments/add', [AssignmentController::class, 'create'], [AuthMiddleware::class]),
-    Route::post('/assignments/add', [AssignmentController::class, 'upsert'], [AuthMiddleware::class]),
 ];

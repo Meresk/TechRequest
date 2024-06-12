@@ -27,6 +27,10 @@
             </thead>
             <tbody>
                 <?php
+                usort($applications, function ($a, $b) {
+                    return $a['id'] <=> $b['id'];
+                });
+
                 foreach ($applications as $application) { // Используем ссылку для изменения оригинальных данных
                     foreach ($users as $applicant) {
                         if ($application['applicant_id'] == $applicant->id()) {

@@ -32,6 +32,10 @@
             </thead>
             <tbody>
                 <?php
+                usort($applications, function ($a, $b) {
+                    return $a['id'] <=> $b['id'];
+                });
+
                 foreach ($applications as &$application) { // Используем ссылку для изменения оригинальных данных
                     $executor = null;
 
