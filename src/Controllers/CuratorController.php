@@ -16,9 +16,12 @@ class CuratorController extends Controller
     {
         $users = new UserService($this->db());
         $applications = $this->db()->selectWithJoin('applications.id', 'assignments.application_id');
+        $sortBy = $this->request()->input('sortBy');
+
         $this->view('curator/index', [
             'applications' => $applications,
             'users' => $users->all(),
+            'sortBy' => $sortBy,
         ], 'Управление');
     }
 }

@@ -18,7 +18,16 @@ class ApplicationController extends Controller
 
     public function store(): void
     {
-        // TODO: добавить валидацию
+        $validation = $this->request()->validate([
+            'reason' => ['required'],
+            'inventoryPlace' => ['required'],
+        ]);
+
+        if (! $validation) {
+            $this->session()->set('error', 'Не все обязательные поля заполнены');
+
+            $this->redirect('/applications/add');
+        }
 
         $this->service()->store(
             $this->request()->input('reason'),

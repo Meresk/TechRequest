@@ -69,7 +69,7 @@
                                     <input type="hidden" name="applicationId" value="<?php echo $application->id() ?>">
                                     <div class="mb-2">
                                         <select class="form-select " name="executorId">
-                                            <option>Исполнитель</option>
+                                            <option value="" selected disabled>Выберите исполнителя</option>
                                             <?php foreach ($executors as $executor) { ?>
                                                 <option value="<?php echo $executor->id() ?>" <?php echo $executor->id() == $assignment->executorId() ? 'selected' : '' ?>>
                                                     <?php echo $executor->name() ?>
@@ -82,14 +82,13 @@
                                         <button class="btn btn-primary btn-success">Назначить</button>
                                     </div>
                                 </form>
-
                             <?php } else { ?>
                                 <form action="/assignments/add" method="post">
                                     <input type="hidden" name="applicationId" value="<?php echo $application->id() ?>">
                                     <div class="mb-2">
 
-                                        <select class="form-select " name="executorId">
-                                            <option>Исполнитель</option>
+                                        <select class="form-select " name="executorId" id="executorSelect">
+                                            <option value="" selected disabled>Выберите исполнителя</option>
                                             <?php foreach ($executors as $executor) { ?>
                                                 <option value="<?php echo $executor->id() ?>">
                                                     <?php echo $executor->name() ?>
@@ -99,8 +98,19 @@
                                     </div>
 
                                     <div class="mb-0 d-flex justify-content-end">
-                                        <button class="btn btn-primary btn-success">Назначить</button>
+                                        <button class="btn btn-primary btn-success" id="assignButton" disabled>Назначить</button>
                                     </div>
+
+                                    <script>
+                                        document.getElementById('executorSelect').addEventListener('change', function() {
+                                            var assignButton = document.getElementById('assignButton');
+                                            if (this.value !== "") {
+                                                assignButton.removeAttribute('disabled');
+                                            } else {
+                                                assignButton.setAttribute('disabled', 'disabled');
+                                            }
+                                        });
+                                    </script>
                                 </form>
                             <?php } ?>
                         </div>

@@ -11,7 +11,13 @@
             <h3 class="mt-3">Открытие новой заявки</h3>
             <hr>
         </div>
+
         <div class="container">
+            <?php if ($session->has('error')) { ?>
+                <div class="alert alert-danger w-50">
+                    <?php echo $session->getFlash('error') ?>
+                </div>
+            <?php } ?>
             <form action="/applications/add" method="post" class="d-flex flex-column justify-content-center w-50 gap-2 mt-5 mb-5">
                 <div class="row g-2">
                     <!-- Поле "Причина" -->

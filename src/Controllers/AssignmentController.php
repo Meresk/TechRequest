@@ -26,6 +26,16 @@ class AssignmentController extends Controller
 
     public function upsert(): void
     {
+        $validation = $this->request()->validate([
+            'executorId' => ['required'],
+        ]);
+
+        if (! $validation) {
+            $this->session()->set('error', 'Не все обязательные поля заполнены');
+
+            $this->redirect('/applications/add');
+        }
+
 
         $this->service()->upsert(
             $this->request()->input('id'),
